@@ -1,0 +1,23 @@
+{
+  "name": "frontend_practico",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rricozdev/frontend_practico.git"
+  },
+  "keywords": [],
+  "author": "rricozdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rricozdev/frontend_practico/issues"
+  },
+  "homepage": "https://github.com/rricozdev/frontend_practico#readme",
+  "description": "",
+  "dependencies": {
+    "jest": "29.7.0"
+  }
+}
