@@ -41,13 +41,15 @@ function obtenerCiudad(usuario) {
 // Crea una función que reciba un objeto y retorne un array con sus claves.
 const producto = { id: 1, nombre: "Laptop", precio: 1200 };
 function obtenerClaves(obj) {
-  return object.key(obj)
+  //console.log(Object.keys(obj))
+  return Object.keys(obj)  
 }
 const claves = obtenerClaves(producto); 
 
 // 6. Object.values()
 // Crea una función que reciba un objeto y retorne un array con sus valores.
 function obtenerValores(obj) {
+  //console.log(Object.values(obj));
  return Object.values(obj)
 }
 const valores = obtenerValores(producto);
@@ -55,6 +57,8 @@ const valores = obtenerValores(producto);
 // 7. Object.entries()
 // Crea una función que reciba un objeto y retorne un array con sus pares clave-valor.
 function obtenerEntradas(obj) {
+  //console.log(Object.entries(obj));
+  //console.log(obj)
   return Object.entries(obj)
 }
 const entradas = obtenerEntradas(producto);
@@ -63,7 +67,7 @@ const entradas = obtenerEntradas(producto);
 // Crea una función que reciba un objeto y una clave, y verifique si la clave existe en el objeto usando "in" y "hasOwnProperty".
 function verificarPropiedad(obj, key) {
   return{
-    UsandoIn: key in obj,
+    UsandoIn: key in obj, 
     UsandoHasOwn: obj.hasOwnProperty(key)
 
   }
