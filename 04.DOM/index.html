@@ -7,9 +7,40 @@
     <title>fundamentos DOM</title>
 </head>
 <body>
+    <!-- accesando el DOM con getElementById() -->
     <h1 id="title">Hola DOM</h1>  
-    <button id="boton">cambiar titulo</button>   
+    <button id="boton">cambiar titulo</button>  
+     
+    <!--agregamos nuevos elementos con la misma clase para usar getElementsByClassName() -->
+    <p class="parrafo" >Primer párrafo</p>
+    <p class="parrafo">Segundo párrafo</p>
+    <p class="parrafo">Tercer párrafo</p>
     
+    <button id="cambiar-parrafo">Cambiar párrafo</button>
+
+    <!-- agregamos elementos para usar getElementsByTagName() -->
+     <ul>
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+        <li>Elemento 3</li>
+     </ul>
+
+     <button id="cambiar-items">Cambiar elementos</button>
+
+     <!-- selección por SELECTORES CSS -->
+      <div class="contenedor">
+        <span class="destacado">Elemento destacado 1</span>
+        <span class="destacado">Elemento destacado 2</span>
+        <span class="destacado">Elemento destacado 3</span>
+      </div>
+      <button id="cambiar-destacado">Cambiar destacado</button>
+
+      <!-- getElementByName() -->
+      <!-- const elements = document.getElementsByName(name); -->
+
+    <form name="up"><input type="text" /></form>
+    <div name="down"><input type="text" /></div>
+
     <script type="module" src="./script.js"></script>
 </body>
 </html>
