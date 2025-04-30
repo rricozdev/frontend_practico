@@ -1,0 +1,17 @@
+button {
+
+    border: 10px;
+    width: 100px;
+    height: 25px;
+
+    margin: 10px;
+    background-color: rgba(255, 255, 0, 0.645);
+
+
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgba(17, 17, 17, 0.975);
+    color: yellow;
+}

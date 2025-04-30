@@ -239,3 +239,271 @@ Si quieres verlo en acción:
 ## 📌 Concluimos que:   
 `JSX` parece `HTML`, pero es `JavaScript extendido` con reglas específicas para trabajar con `React`. La clave está en recordar que todo se transforma en ``React.createElement()`` al final. 🛠️
 
+--- 
+
+## ¿ QUÉ SON LOS COMPONENTES ? 🧊 🧱  
+
+![react_components](./componentes.png){width=400px}
+
+Las aplicaciones de React se construyen a partir de piezas independientes de UI llamadas componentes. Un componente de `React` es una `función` de `JavaScript` a la que le puedes agregar un poco de marcado (markup). Los componentes
+pueden ser tan pequeños como un botón, o tan grandes como una página entera. Miremos la imagen de abajo, cada cajita con un color particular representa un componente. Esta es una de las muchas formas de poder dividir un solo elemento o `feature` de nuestro sitio. 
+
+Todo en React se construye con componentes. Son como piezas de Lego: pequeños bloques reutilizables que juntos forman una aplicación.
+
+### ¿ Qué debe contener un *_componente_* ?   
+
+Para diseñar componentes es importante tener en cuenta el principio de diseño llamado ***single responsability*** (SRP - Single Responsability Principle) o principio de responsabilidad única. El principio de responsabilidad única o single responsibility establece que un módulo de software debe tener una y solo una razón para cambiar. Esta razón para cambiar es lo que se entiende por responsabilidad.   
+
+![navaja_suiza](image-2.png){width=300px} 
+
+## *“Reúna las cosas que cambian por las mismas razones. Separe las cosas que cambian por diferentes razones.”*   
+
+Este principio está estrechamente relacionado con los conceptos de acoplamiento y cohesión. Queremos aumentar la cohesión entre las cosas que cambian por las mismas razones y disminuir el acoplamiento entre las cosas que cambian por diferentes razones. Este principio trata sobre limitar el impacto de un cambio.
+Si existe más de una razón para cambiar una clase, probablemente tenga más de una responsabilidad. Otro posible “mal olor” es que tenga diferentes comportamientos dependiendo de su estado. Tener más de una responsabilidad también hace que el código sea difícil de leer, testear y mantener. Es decir, hace que el código sea menos flexible.   
+
+Entre las ventajas de aplicar este principio encontramos que, si se necesita hacer algún cambio, éste será fácil de detectar ya que estará aislado en una clase claramente definida y comprensible. Minimizando los efectos colaterales en otras clases. Algunos ejemplos que encontramos en la vida real son:   
+
+- Si cambia la forma en que se compra un artículo, no tendremos que modificar el código responsable de almacenarlo. 
+- Si cambia la base de datos, no habrá que arreglar cada pedazo de código donde se utiliza.
+
+## 🛠 Cómo se escribe un componente
+💡 Recuerda: Un componente es solo una función de JavaScript que devuelve JSX.   
+
+```js
+function Boton() {
+  return <button>Haz click</button>;
+}
+```   
+
+La función anterior se verá así:   
+
+![alt text](image-4.png)
+
+
+
+Este componente se puede reutilizar todas las veces que necesitemos ese botón.
+
+## 🧩 Composición de componentes
+Los componentes pueden componerse entre sí. Esto significa que un componente puede usar otros componentes dentro de su JSX.
+
+```jsx
+function Header() {
+  return <h1>Mi sitio web</h1>;
+}
+
+function Footer() {
+  return <footer>© 2025 RickDev</footer>;
+}
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <p>Contenido principal</p>
+      <Footer />
+    </div>
+  );
+}
+
+```
+
+Esto permite armar UIs más complejas a partir de piezas simples y bien separadas.
+
+## 📦 Props: Personalización de componentes
+Podemos hacer que un componente sea dinámico y reutilizable usando props.   
+
+```jsx
+function Saludo({ nombre }) {
+  return <h2>Hola, {nombre} 👋</h2>;
+}
+
+function App() {
+  return (
+    <div>
+      <Saludo nombre="Rick" />
+      <Saludo nombre="Morty" />
+    </div>
+  );
+}
+```   
+
+## 🧠 Aplicando el SRP en componentes
+Cuando diseñamos componentes, debemos pensar:
+
+¿Este componente hace una sola cosa clara y específica?
+
+Mal ejemplo (violando SRP):  ❌ 
+
+```jsx 
+function CarritoYFormulario() {
+  return (
+    <>
+      <FormularioDeCompra />
+      <ListaDeProductos />
+      <BotonPago />
+    </>
+  );
+}
+```
+
+En lugar de eso, separalos: ✅   
+
+```jsx
+function Carrito() {
+  return <ListaDeProductos />;
+}
+
+function Checkout() {
+  return (
+    <>
+      <FormularioDeCompra />
+      <BotonPago />
+    </>
+  );
+}
+```   
+
+## 🧠 Preguntas clave para evaluar tus componentes   
+
+- ¿Este componente tiene una sola responsabilidad clara?
+
+- ¿Se puede dividir en subcomponentes reutilizables?
+
+- ¿Tiene sentido el nombre del componente?
+
+- ¿Le estoy pasando demasiadas props? ¿Podría dividirlo?   
+
+### ✅ Buenas prácticas    
+
+Nombres claros: 
+- `BotonEliminar`, 
+- `FormularioContacto`, 
+- `ListaUsuarios`
+
+1. Una sola responsabilidad por componente
+2. Separar lógica y presentación cuando sea posible
+3. Componer en lugar de meter todo en uno solo
+4. Evitar efectos colaterales dentro del render
+---
+
+### 1️⃣ Una sola responsabilidad por componente   
+✅ ¿Qué significa?   
+
+Cada componente debe encargarse de una sola tarea específica. Esto hace que el componente sea más fácil de leer, mantener y testear. Si un componente tiene muchas responsabilidades, se vuelve difícil de entender y modificar sin romper algo más.
+
+### 🔧 Mal ejemplo:   
+
+```jsx
+function PerfilUsuario() {
+  const [formData, setFormData] = useState({});
+  const [datosUsuario, setDatosUsuario] = useState([]);
+
+  useEffect(() => {
+    // Traer datos del usuario
+  }, []);
+
+  return (
+    <>
+      <FormularioPerfil />
+      <TablaHistorialCompras />
+      <GraficoActividad />
+    </>
+  );
+}
+```   
+
+Este componente hace demasiado: carga datos, maneja estado, y muestra múltiples secciones.    
+
+### ❌ Problemas en este enfoque:   
+
+Tiene múltiples responsabilidades al mismo tiempo:
+
+1. Maneja estado (useState)
+
+2. Ejecuta lógica de negocio (useEffect)
+
+3. Renderiza múltiples vistas (FormularioPerfil, TablaHistorialCompras, etc.)
+
+Todo eso en un solo componente lo vuelve más difícil de entender, probar y mantener.
+
+- Afecta la legibilidad: Si mañana alguien necesita modificar solo el formulario, tendrá que leer todo este componente para entender cómo funciona. Es mucho ruido para una sola tarea.
+
+- Menos reutilización: Si otro módulo necesita usar TablaHistorialCompras, tendría que duplicar lógica o extraer código manualmente después. No está pensado para componerse o reutilizarse.
+
+- Mayor posibilidad de bugs: Al estar todo mezclado, un cambio en la lógica puede afectar sin querer otra parte del render. Por ejemplo, cambiar cómo cargas datos puede romper el gráfico o la tabla sin darte cuenta.
+
+### ✅ Buen ejemplo:   
+
+Dividido en componentes con una sola responsabilidad:   
+
+
+```jsx 
+function PerfilUsuario() {
+  return (
+    <>
+      <DatosPersonales />
+      <HistorialDeCompras />
+      <ActividadReciente />
+    </>
+  );
+}
+```
+Cada uno de esos subcomponentes tiene una sola función.   
+
+#### ✅ Ventajas de este enfoque:    
+
+Cada componente tiene una sola responsabilidad:
+
+1. DatosPersonales: se encarga solo del perfil
+
+2. HistorialDeCompras: solo de la tabla
+
+3. ActividadReciente: solo del gráfico
+
+- Modularidad: Si quieres probar o cambiar `HistorialDeCompras`, lo haces aisladamente. Es un componente independiente.
+
+- Reutilización: Podés usar ActividadReciente en otra página sin depender de PerfilUsuario.
+
+- Legibilidad y mantenibilidad: El archivo PerfilUsuario se convierte en un resumen limpio de "qué se muestra", y los detalles internos se manejan por separado.
+
+## 🧪 Ejercicio: Crear un componente DatosPersonales con estilos separados   
+
+🎯 Objetivo   
+
+Crear un componente funcional en React llamado `DatosPersonales` que muestre la información de una persona (nombre, email y edad). El componente debe tener su archivo de estilos CSS separado para aplicar una presentación más visual.   
+
+📝 Requisitos   
+
+Crear un archivo llamado `DatosPersonales.jsx` dentro de la carpeta components (o donde estés organizando tus componentes).
+
+Este componente debe:
+
+1. Ser una función de JavaScript que retorne JSX.
+
+2. Mostrar el título “Datos personales”.
+
+3. Mostrar nombre, email y edad en etiquetas `<p>`.
+
+4. Crear un archivo `DatosPersonales.css` para aplicar estilos.
+
+5. Enlazar el archivo CSS dentro del componente usando :
+
+```jsx 
+import './DatosPersonales.css'.
+```
+
+Aplicar estilos como:
+
+- Borde gris
+
+- Padding interno
+
+- Bordes redondeados
+
+- Un color de fondo claro
+
+- Un poco de sombra para simular una tarjetita visual (box-shadow)
+
+---   
+
+
