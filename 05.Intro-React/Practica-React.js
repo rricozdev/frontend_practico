@@ -16,7 +16,7 @@ function sumatoria() {
   return sumTotal;
 }
 
-console.log(sumatoria());
+console.log(sumatoria()); 
 
 // Declarativo --> QUÉ
 function sumatory(){
