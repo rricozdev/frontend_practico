@@ -1,0 +1,9 @@
+/* src/styles/ProductCard.module.css */
+.card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  

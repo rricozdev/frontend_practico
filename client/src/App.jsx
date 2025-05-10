@@ -3,11 +3,13 @@
 // import Header from "./components/Header/Header";
 // import Saludar from "./components/Saludar";
 import Cards from "./components/Cards/Cards";
+import CarritoYFormulario from "./components/CarritoYFormulario/CarritoYFormulario";
 
 function App() {
   return (
     <>
       <Cards />
+      <CarritoYFormulario />
     </>
   );
 }

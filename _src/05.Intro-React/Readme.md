@@ -386,124 +386,136 @@ Nombres claros:
 4. Evitar efectos colaterales dentro del render
 ---
 
-### 1️⃣ Una sola responsabilidad por componente   
-✅ ¿Qué significa?   
 
-Cada componente debe encargarse de una sola tarea específica. Esto hace que el componente sea más fácil de leer, mantener y testear. Si un componente tiene muchas responsabilidades, se vuelve difícil de entender y modificar sin romper algo más.
+## 🧩 ¿Qué es el Principio de Responsabilidad Única (SRP)?
 
-### 🔧 Mal ejemplo:   
+El **SRP** dice que **cada módulo de tu código (función, componente, archivo, etc.) debe tener una sola responsabilidad**, o sea, **una sola razón para cambiar**.
+
+> Si un componente hace muchas cosas diferentes, cuando tengas que cambiar algo, vas a terminar tocando varias partes y arriesgando que se rompa lo demás.
+
+---
+
+## 📦 ¿Qué sería una "responsabilidad"?
+
+Es una **tarea específica**. Por ejemplo:
+
+* Mostrar datos → una responsabilidad
+* Manejar eventos del usuario → otra responsabilidad
+* Formatear datos → otra
+
+Si todo eso está junto en un solo componente, es una señal de que no estás aplicando SRP.
+
+---
+
+## 👎 Ejemplo con múltiples responsabilidades
 
 ```jsx
-function PerfilUsuario() {
-  const [formData, setFormData] = useState({});
-  const [datosUsuario, setDatosUsuario] = useState([]);
+function Usuario() {
+  const user = {
+    name: "Camilo Miranda",
+    email: "cmiranda@correo.com",
+    phone: "3332221110",
+  };
 
-  useEffect(() => {
-    // Traer datos del usuario
-  }, []);
+  function saludar() {
+    alert(`Hola ${user.name}`);
+  }
 
   return (
-    <>
-      <FormularioPerfil />
-      <TablaHistorialCompras />
-      <GraficoActividad />
-    </>
-  );
-}
-```   
-
-Este componente hace demasiado: carga datos, maneja estado, y muestra múltiples secciones.    
-
-### ❌ Problemas en este enfoque:   
-
-Tiene múltiples responsabilidades al mismo tiempo:
-
-1. Maneja estado (useState)
-
-2. Ejecuta lógica de negocio (useEffect)
-
-3. Renderiza múltiples vistas (FormularioPerfil, TablaHistorialCompras, etc.)
-
-Todo eso en un solo componente lo vuelve más difícil de entender, probar y mantener.
-
-- Afecta la legibilidad: Si mañana alguien necesita modificar solo el formulario, tendrá que leer todo este componente para entender cómo funciona. Es mucho ruido para una sola tarea.
-
-- Menos reutilización: Si otro módulo necesita usar TablaHistorialCompras, tendría que duplicar lógica o extraer código manualmente después. No está pensado para componerse o reutilizarse.
-
-- Mayor posibilidad de bugs: Al estar todo mezclado, un cambio en la lógica puede afectar sin querer otra parte del render. Por ejemplo, cambiar cómo cargas datos puede romper el gráfico o la tabla sin darte cuenta.
-
-### ✅ Buen ejemplo:   
-
-Dividido en componentes con una sola responsabilidad:   
-
-
-```jsx 
-function PerfilUsuario() {
-  return (
-    <>
-      <DatosPersonales />
-      <HistorialDeCompras />
-      <ActividadReciente />
-    </>
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+      <p>{user.phone}</p>
+      <button onClick={saludar}>Saludar</button>
+    </div>
   );
 }
 ```
-Cada uno de esos subcomponentes tiene una sola función.   
 
-#### ✅ Ventajas de este enfoque:    
+**Este componente hace todo:**
 
-Cada componente tiene una sola responsabilidad:
+* Contiene los datos del usuario
+* Renderiza la UI
+* Maneja el evento de saludo
 
-1. DatosPersonales: se encarga solo del perfil
+➡️ Tiene **tres razones para cambiar**. No cumple con SRP.
 
-2. HistorialDeCompras: solo de la tabla
+---
 
-3. ActividadReciente: solo del gráfico
+## ✅ Aplicando SRP: separando responsabilidades
 
-- Modularidad: Si quieres probar o cambiar `HistorialDeCompras`, lo haces aisladamente. Es un componente independiente.
+### `UserData.jsx` – Solo muestra los datos
 
-- Reutilización: Podés usar ActividadReciente en otra página sin depender de PerfilUsuario.
+```jsx
+function UserData({ user }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+      <p>{user.phone}</p>
+    </div>
+  );
+}
 
-- Legibilidad y mantenibilidad: El archivo PerfilUsuario se convierte en un resumen limpio de "qué se muestra", y los detalles internos se manejan por separado.
-
-## 🧪 Ejercicio: Crear un componente DatosPersonales con estilos separados   
-
-🎯 Objetivo   
-
-Crear un componente funcional en React llamado `DatosPersonales` que muestre la información de una persona (nombre, email y edad). El componente debe tener su archivo de estilos CSS separado para aplicar una presentación más visual.   
-
-📝 Requisitos   
-
-Crear un archivo llamado `DatosPersonales.jsx` dentro de la carpeta components (o donde estés organizando tus componentes).
-
-Este componente debe:
-
-1. Ser una función de JavaScript que retorne JSX.
-
-2. Mostrar el título “Datos personales”.
-
-3. Mostrar nombre, email y edad en etiquetas `<p>`.
-
-4. Crear un archivo `DatosPersonales.css` para aplicar estilos.
-
-5. Enlazar el archivo CSS dentro del componente usando :
-
-```jsx 
-import './DatosPersonales.css'.
+export default UserData;
 ```
 
-Aplicar estilos como:
+---
 
-- Borde gris
+### `SaludoButton.jsx` – Solo maneja el saludo
 
-- Padding interno
+```jsx
+function SaludoButton({ name }) {
+  function saludar() {
+    alert(`Hola ${name}`);
+  }
 
-- Bordes redondeados
+  return <button onClick={saludar}>Saludar</button>;
+}
 
-- Un color de fondo claro
+export default SaludoButton;
+```
 
-- Un poco de sombra para simular una tarjetita visual (box-shadow)
+---
 
----   
+### `Usuario.jsx` – Orquesta a los otros
 
+```jsx
+import UserData from "./UserData";
+import SaludoButton from "./SaludoButton";
+
+function Usuario() {
+  const user = {
+    name: "Camilo Miranda",
+    email: "cmiranda@correo.com",
+    phone: "3332221110",
+  };
+
+  return (
+    <div>
+      <UserData user={user} />
+      <SaludoButton name={user.name} />
+    </div>
+  );
+}
+
+export default Usuario;
+```
+
+---
+
+## 🧠 ¿Cómo saber si estás aplicando bien SRP?
+
+Preguntate:
+
+* ¿Qué pasaría si mañana quiero cambiar cómo se saluda?
+  → ¿Tengo que meterme en el mismo componente que muestra los datos?
+
+* ¿Puedo reusar el botón de saludo en otro lugar?
+  → Si no puedo, probablemente tengo que separarlo.
+
+---
+
+
+### **Separar responsabilidades = código más limpio, más fácil de entender, modificar y reusar.**
 

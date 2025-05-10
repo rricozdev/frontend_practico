@@ -18,7 +18,7 @@ const users = [
 
 function Cards() {
   return (
-    <div>
+    <div >
       {users.map((user) => (
         <Card
           key={user.id}
