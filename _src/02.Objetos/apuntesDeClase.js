@@ -18,3 +18,14 @@ for(let i = 0; i < empleados.length; i++){
 console.log(empleadosConBuenSalario)
 
 // La tarea es utilizar el método .filter();
+//array con trabajadores de salario max 3000
+empleadosBuenSalario = empleados.filter ( (empleado) => empleado.salario > 3000 )
+
+console.log(empleadosBuenSalario);
+
+// solo nombres 
+empleadosBuenSalario = empleados
+.filter(empleado => empleado.salario > 3000)
+.map(empleado => empleado.nombre)
+
+console.log(empleadosBuenSalario);

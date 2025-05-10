@@ -13,19 +13,30 @@ const usuariosPremium = usuarios.filter(usuario => {
     return usuario.premium;
 })
 
-console.log(usuariosPremium)
+console.log(usuariosPremium) 
 
 
 // 2. Calcular total de productos en carrito
 // Descripción: Dado un array de productos, calcular el precio total usando `reduce`.
 const carrito = [
-  { nombre: "Camisa", precio: 20 },
+   { nombre: "Camisa", precio: 20 },
   { nombre: "Pantalón", precio: 50 },
   { nombre: "Zapatos", precio: 80 }
 ];
+
+let initialValue = 0;
+const totalCarrito = carrito.reduce(
+  (acomulador, siguienteValor) => acomulador + siguienteValor.precio, initialValue,
+)
+console.log(totalCarrito);
+
+
+
 
 
 // 3. Transformar nombres a mayúsculas
 // Descripción: Convertir todos los nombres de un array a mayúsculas usando `map`.
 const nombres = ["sofía", "miguel", "valentina"];
 
+const nombresMayuscula = nombres.map(nombre => nombre.toUpperCase())
+console.log(nombresMayuscula)
