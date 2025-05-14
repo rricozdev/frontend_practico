@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-import styles from "../styles/ProductCards.module.css";
+import styles from "../styles/ProductsCards.module.css";
 
 
 
@@ -14,7 +14,7 @@ function ProductsCards({products}){
     }
 
     return(
-        <div className={styles.container}>
+        <div className={styles.container} >
             {products.map((product) => (
                 <ProductCard 
                     key={product.id}

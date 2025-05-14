@@ -1,0 +1,8 @@
+.saludo {
+  font-size: 1.5rem;
+  color: #2a9d8f;
+  background-color: #e0f7f1;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
