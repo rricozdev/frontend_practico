@@ -95,5 +95,92 @@ El estado se usa cuando:
 | Ideal para configurar el componente              | Ideal para manejar interacción/dinámica |
 
 ---
+### 🎣 ¿Qué es un hook en React?
+
+> ** ⚓ Un hook es una función especial que nos permite “enganchar” lógica de React (como estado, efectos, contexto, etc.) dentro de un componente funcional.**
+
+React introdujo los hooks a partir de la versión **16.8** para permitir usar características como `state`, `lifecycle methods`, `context`, etc., **sin tener que usar componentes de clase**.
+
+---
+
+### 🧠 ¿Qué problemas resuelve un hook?
+
+Antes de los hooks, para usar `state` o lógica de ciclo de vida (`componentDidMount`, etc.) había que escribir **componentes de clase**, que son más verbosos.
+Con los hooks ahora podemos:
+
+* Usar **estado (`useState`)**
+* Ejecutar efectos secundarios como peticiones o timers (`useEffect`)
+* Compartir lógica entre componentes (`custom hooks`)
+* Usar otras características avanzadas de React con menos código
+
+---
+
+### 💡 Pensalo así:
+
+> React te da funciones mágicas llamadas *hooks*, y vos las usás para conectar tu componente con cosas internas de React: el estado, los efectos, el contexto, etc.
+
+---
+
+### Ejemplo básico:
+
+- usando componente de clase:  
+
+```js
+import React, { Component } from 'react';
+
+class Contador extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0 // estado inicial
+    };
+  }
+
+  incrementar = () => {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Contador: {this.state.count}</p>
+        <button onClick={this.incrementar}>Sumar</button>
+      </div>
+    );
+  }
+}
+export default Contador;
+```
+
+- usando el hook `useState`:
+
+```js
+import { useState } from 'react';
+
+function Contador() {
+  const [count, setCount] = useState(0); // ← usando el hook
+
+  return (
+    <div>
+      <p>Contador: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Sumar</button>
+    </div>
+  );
+}
+```
+
+---
+
+### Resumen:
+
+| Característica                            | Hook                     |
+| ----------------------------------------- | ------------------------ |
+| Manejar estado                            | `useState`               |
+| Efectos secundarios (fetch, timers, etc.) | `useEffect`              |
+| Acceder al contexto                       | `useContext`             |
+| Refs a elementos                          | `useRef`                 |
+| Memorizar valores/fn                      | `useMemo`, `useCallback` |
+
+---
 
 

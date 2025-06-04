@@ -10,6 +10,7 @@
 }
 
 .cartContainer:hover {
+  cursor: pointer;
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
@@ -88,6 +89,40 @@
   background-color: #f7fafc;
   border-radius: 12px;
   border: 1px dashed #cbd5e0;
+}
+
+
+
+.totalContainer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.totalText {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.totalText span {
+  color: #3182ce;
+}
+
+.buyButton {
+  background-color: #3182ce;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buyButton:hover {
+  background-color: #2b6cb0;
 }
 
 @media (max-width: 600px) {
